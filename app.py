@@ -7,8 +7,11 @@ import certifi
 
 ca=certifi.where()
 
-client = MongoClient("mongodb+srv://test:test@cluster0.15fhovx.mongodb.net/test", tlsCAFile=ca)
-db = client.dbsparta_plus_week4
+# client = MongoClient("mongodb+srv://test:test@cluster0.15fhovx.mongodb.net/test", tlsCAFile=ca)
+# db = client.dbsparta_plus_week4
+
+client = MongoClient("mongodb+srv://sparta:<password>@cluster0.inqbmby.mongodb.net/?retryWrites=true&w=majority", tlsCAFile=ca)
+db = client.hanghae
 
 # JWT 토큰을 만들 때 필요한 비밀문자열입니다. 아무거나 입력해도 괜찮습니다.
 # 이 문자열은 서버만 알고있기 때문에, 내 서버에서만 토큰을 인코딩(=만들기)/디코딩(=풀기) 할 수 있습니다.
@@ -131,6 +134,18 @@ def api_valid():
     except jwt.exceptions.DecodeError:
         return jsonify({'result': 'fail', 'msg': '로그인 정보가 존재하지 않습니다.'})
 
+@app.route('/write/article', methods = ['POST'])
+def write_article() :
+    title_receive = request.form['title_give']
+    context_receive = request.form['context_give']
+    category_receive = request.form['category_give']
+    id_receive = request.form['id_give']
+
+    db.user.insert_one({"Title":title_receive, "Context":context_receive, "Category":category_receive,"ID":id_receive, "Like":0})
+
+@app.route('/like', methods = ['POST'])
+def write_article() :
+    like_receive = request.form['like_give']
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5001, debug=True)
