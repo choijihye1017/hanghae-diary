@@ -138,7 +138,7 @@
         }
 
         function listing_mycontent() {
-            fetch('/get').then((res)=>res.json()).then((data)=>{
+            fetch('/content').then((res)=>res.json()).then((data)=>{
                 let contents = data['result']
                 $('#cards-box').empty()
                 contents.forEach((one)=>{
@@ -193,7 +193,7 @@
             </div>
         </div>
     </div>
-    <div class="row row-cols-1 row-cols-md-3 g-4" style="display:flex; align-items: center; justify-content: center; margin-top: 10px;">
+    <div class="row row-cols-1 row-cols-md-3 g-4" id="cards-box" style="display:flex; align-items: center; justify-content: center; margin-top: 10px;">
         <div class="card">
             <div class="card-body">
                 <div class="card-top" style="display:flex; flex-direction: row;">

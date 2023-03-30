@@ -8,15 +8,15 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <title>글쓰기 page</title>
     <script>
-        function write() {
+        function save_context() {
             let title = $('#title').val();
             let context = $('#context').val();
             let category = $('#category').val();
 
             let formData = new FormData()
-            formData.append("title_give",title)
-            formData.append("context_give",context)
-            formData.append("category_give",category)
+            formData.append('title_give',title)
+            formData.append('context_give',context)
+            formData.append('category_give',category)
 
             fetch('/write',{ method: "POST", body:formData}).then((res)=> res.json()).then((data)=>{
                 alert(data['msg'])
@@ -73,7 +73,7 @@
             </select>
         </div>
         <div class="buttons">
-            <button onclick="write()">저장하기</button>
+            <button onclick="save_context()">저장하기</button>
         </div>
 
     </div>

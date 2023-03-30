@@ -150,7 +150,7 @@ def save():
 
     return jsonify({'msg':'저장완료!'})  
 
-@app.route("/get", methods=["GET"])
+@app.route("/content", methods=["GET"])
 def content_get():
     all_content = list(db.Content.find({},{'_id':False}))
     return jsonify({'result':all_content})
