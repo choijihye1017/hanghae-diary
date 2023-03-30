@@ -10,8 +10,18 @@
     <script>
         function write() {
             let title = $('#title').val();
-            let context = $('context').val();
-            let category = $('category').val();
+            let context = $('#context').val();
+            let category = $('#category').val();
+
+            let formData = new FormData()
+            formData.append("title_give",title)
+            formData.append("context_give",context)
+            formData.append("category_give",category)
+
+            fetch('/write',{ method: "POST", body:formData}).then((res)=> res.json()).then((data)=>{
+                alert(data['msg'])
+                window.location.reload()
+            })
         }
     </script>
     <style>

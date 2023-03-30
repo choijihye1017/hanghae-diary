@@ -107,6 +107,10 @@
     </style>
 
     <script>
+        $(document).ready(function () {
+            listing_mycontent()
+        })
+
         $(function () {
             var $likeBtn = $('.icon.heart');
 
@@ -132,6 +136,36 @@
         function gotopage(){
             window.location.href='/write'
         }
+
+        function listing_mycontent() {
+            fetch('/get').then((res)=>res.json()).then((data)=>{
+                let contents = data['result']
+                $('#cards-box').empty()
+                contents.forEach((one)=>{
+                    let title = one['title']
+                    let context = one['context']
+                    let category = one['category']
+                    let like = one['like']
+                    console.log(title, context, category, like)
+                    let temp_html = ` <div class="card">
+                                            <div class="card-body">
+                                                <div class="card-top" style="display:flex; flex-direction: row;">
+                                                    <h5 class="card-title" style="margin-right: 170px;">${title}</h5>
+                                                    <a href="javascript:;" class="icon heart">
+                                                        <img src="https://cdn-icons-png.flaticon.com/512/812/812327.png" alt="찜하기">
+                                                    </a>
+                                                </div>
+                                                <div class="jb-division-line"></div>
+                                                <div class="card-1">
+                                                    <p class="card-body-hashtag">#${category}</p>
+                                                    <p class="card-text">${context}</p>
+                                                    <footer style="margin-bottom: 10px; opacity: 0.5;"></footer>
+                                                </div>
+                                            </div>
+                                        </div>`
+                    $('#cards-box').append(temp_html)
+                })
+            })}
     </script>
 </head>
 

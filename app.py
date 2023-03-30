@@ -134,6 +134,27 @@ def api_valid():
     except jwt.exceptions.DecodeError:
         return jsonify({'result': 'fail', 'msg': '로그인 정보가 존재하지 않습니다.'})
 
+@app.route('/write', methods=['POST'])
+def save():
+    title_receive = request.form['title_give']
+    context_receive = request.form['context_give']
+    category_receive = request.form['category_give']
+
+    doc = {
+        'title':title_receive,
+        'context':context_receive,
+        'category':category_receive,
+        'like':0
+    }
+    db.Content.insert_one(doc)
+
+    return jsonify({'msg':'저장완료!'})  
+
+@app.route("/get", methods=["GET"])
+def content_get():
+    all_content = list(db.Content.find({},{'_id':False}))
+    return jsonify({'result':all_content})
+
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5001, debug=True)
