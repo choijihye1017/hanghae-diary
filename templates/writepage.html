@@ -20,7 +20,7 @@
 
             fetch('/write',{ method: "POST", body:formData}).then((res)=> res.json()).then((data)=>{
                 alert(data['msg'])
-                window.location.reload()
+                window.location.href ='/'
             })
         }
     </script>
@@ -57,7 +57,7 @@
     <div class="total">
         <div class="title">
             <span style="color:aliceblue; font-weight: bold; font-size: large;">Title : </span>
-            <input>
+            <input id="title">
         </div>
         <div>
             <textarea id="context" cols="58" rows="20" style="margin-top:20px"></textarea>
