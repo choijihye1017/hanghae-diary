@@ -145,7 +145,13 @@
                             $.cookie('mytoken', response['token']);
 
                             alert('로그인 완료!')
-                            window.location.href = '/'
+                           
+
+                            $('#log-in').empty()
+                            let temp_html = '<p> 환영합니다 <div class="buttons"> <button type="button" class="btn btn-dark" onclick="logout()">로그아웃</button> </div> </p>'
+
+                            $('#log-in').append(temp_html)
+
                         } else {
                             // 로그인이 안되면 에러메시지를 띄웁니다.
                             alert(response['msg'])
@@ -169,7 +175,7 @@
         <div>
             <button class = "btn-write" onclick = "gotopage()">글쓰기</button>
         </div>
-        <div class="input">
+        <div class="input" id="log-in">
             <p>로그인</p>
             <div class="form-floating mb-3">
                 <input type="id" class="form-control" id="floatingInput" placeholder="id">
@@ -182,7 +188,7 @@
             <div class="buttons">
                 <div class = "btn-sign">
                     <button type="button" class="btn btn-outline-dark" onclick="location.href='register'">회원가입</button>
-                    <button type="button" class="btn btn-dark" onclick="login()">로그인</button>   
+                    <button type="button" class="btn btn-dark" onclick="login()">로그인</button>
                 </div>
             </div>
         </div>

@@ -7,13 +7,9 @@ import certifi
 
 ca=certifi.where()
 
-<<<<<<< HEAD
+
 client = MongoClient("mongodb+srv://sparta:test@cluster0.jlxc00o.mongodb.net/?retryWrites=true&w=majority", tlsCAFile=ca)
 db = client.dbsparta
-=======
-client = MongoClient("mongodb+srv://sparta:test@cluster0.inqbmby.mongodb.net/?retryWrites=true&w=majority", tlsCAFile=ca)
-db = client.hanghae
->>>>>>> bf70bd4c4aad06b42d4e2651fc7e98952f7b91d6
 
 # JWT 토큰을 만들 때 필요한 비밀문자열입니다. 아무거나 입력해도 괜찮습니다.
 # 이 문자열은 서버만 알고있기 때문에, 내 서버에서만 토큰을 인코딩(=만들기)/디코딩(=풀기) 할 수 있습니다.
@@ -68,7 +64,6 @@ def gotopage():
 def api_register():
     id_receive = request.form['id_give']
     pw_receive = request.form['pw_give']
-    nickname_receive = request.form['nickname_give']
 
     pw_hash = hashlib.sha256(pw_receive.encode('utf-8')).hexdigest()
 
@@ -97,7 +92,7 @@ def api_login():
         # 아래에선 id와 exp를 담았습니다. 즉, JWT 토큰을 풀면 유저ID 값을 알 수 있습니다.
         # exp에는 만료시간을 넣어줍니다. 만료시간이 지나면, 시크릿키로 토큰을 풀 때 만료되었다고 에러가 납니다.
         payload = {
-            'id': id_receive
+            'id': id_receive,
         }
         token = jwt.encode(payload, SECRET_KEY, algorithm='HS256')
 
