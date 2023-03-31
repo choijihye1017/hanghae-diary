@@ -7,8 +7,13 @@ import certifi
 
 ca=certifi.where()
 
+<<<<<<< HEAD
 client = MongoClient("mongodb+srv://sparta:test@cluster0.jlxc00o.mongodb.net/?retryWrites=true&w=majority", tlsCAFile=ca)
 db = client.dbsparta
+=======
+client = MongoClient("mongodb+srv://sparta:test@cluster0.inqbmby.mongodb.net/?retryWrites=true&w=majority", tlsCAFile=ca)
+db = client.hanghae
+>>>>>>> bf70bd4c4aad06b42d4e2651fc7e98952f7b91d6
 
 # JWT 토큰을 만들 때 필요한 비밀문자열입니다. 아무거나 입력해도 괜찮습니다.
 # 이 문자열은 서버만 알고있기 때문에, 내 서버에서만 토큰을 인코딩(=만들기)/디코딩(=풀기) 할 수 있습니다.
@@ -48,6 +53,9 @@ def login():
 def register():
     return render_template('register.html')
 
+@app.route('/write')
+def gotopage():
+    return render_template('writepage.html')
 
 #################################
 ##  로그인을 위한 API            ##
@@ -126,6 +134,27 @@ def api_valid():
         return jsonify({'result': 'fail', 'msg': '로그인 시간이 만료되었습니다.'})
     except jwt.exceptions.DecodeError:
         return jsonify({'result': 'fail', 'msg': '로그인 정보가 존재하지 않습니다.'})
+
+@app.route('/write', methods=['POST'])
+def save():
+    title_receive = request.form['title_give']
+    context_receive = request.form['context_give']
+    category_receive = request.form['category_give']
+
+    doc = {
+        'title':title_receive,
+        'context':context_receive,
+        'category':category_receive,
+        'like':0
+    }
+    db.Content.insert_one(doc)
+
+    return jsonify({'msg':'저장완료!'})  
+
+@app.route("/content", methods=["GET"])
+def content_get():
+    all_content = list(db.Content.find({},{'_id':False}))
+    return jsonify({'result':all_content})
 
 
 if __name__ == '__main__':

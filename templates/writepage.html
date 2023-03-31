@@ -5,10 +5,23 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <title>글쓰기 page</title>
     <script>
-        function resizing() {
-            window.resizeTo(200, 200);
+        function save_context() {
+            let title = $('#title').val();
+            let context = $('#context').val();
+            let category = $('#category').val();
+
+            let formData = new FormData()
+            formData.append('title_give',title)
+            formData.append('context_give',context)
+            formData.append('category_give',category)
+
+            fetch('/write',{ method: "POST", body:formData}).then((res)=> res.json()).then((data)=>{
+                alert(data['msg'])
+                window.location.href ='/'
+            })
         }
     </script>
     <style>
@@ -30,32 +43,39 @@
             margin-left: 0px;
         }
 
-        .buttons {
-            display : flex;
+        .buttons, .combobox {
+            display: flex;
             justify-content: right;
-            margin-right : 10px;
-            margin-top : 10px;
+            margin-right: 10px;
+            margin-top: 10px;
         }
     </style>
 </head>
 
 <body
-    style="background-image: url('https://cdn.pixabay.com/photo/2017/10/14/09/56/journal-2850091_1280.jpg'); background-size: cover;">
+    style="background-image: url('https://cdn.pixabay.com/photo/2017/10/14/09/56/journal-2850091_1280.jpg'); background-size: 110%;">
     <div class="total">
         <div class="title">
             <span style="color:aliceblue; font-weight: bold; font-size: large;">Title : </span>
-            <input>
+            <input id="title">
         </div>
         <div>
-            <textarea name="name" cols="58" rows="20" style="margin-top:20px">
-
-            </textarea>
-
+            <textarea id="context" cols="58" rows="20" style="margin-top:20px"></textarea>
         </div>
 
-        <div class = "buttons">
-            <button onclikc="resizing()">저장하기</button>
+
+        <div class="combobox">
+            <select id="category">
+                <option selected>-- 선택하기 --</option>
+                <option value="CSS">CSS</option>
+                <option value="HTML">HTML</option>
+                <option value="JS">Javascript</option>
+            </select>
         </div>
+        <div class="buttons">
+            <button onclick="save_context()">저장하기</button>
+        </div>
+
     </div>
 </body>
 
