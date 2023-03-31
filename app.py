@@ -64,6 +64,7 @@ def gotopage():
 def api_register():
     id_receive = request.form['id_give']
     pw_receive = request.form['pw_give']
+    nickname_receive = request.form['nickname_receive']
 
     pw_hash = hashlib.sha256(pw_receive.encode('utf-8')).hexdigest()
 
